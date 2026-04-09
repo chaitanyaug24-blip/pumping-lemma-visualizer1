@@ -1,0 +1,114 @@
+# Pumping Lemma — Interactive Visualizer
+
+An educational web tool for understanding the **Pumping Lemma for Regular Languages** through live string decomposition and pumping simulation.
+
+---
+
+## Project Structure
+
+```
+pumping-lemma-vscode/
+├── index.html          # Main HTML page
+├── css/
+│   └── style.css       # All styles (design tokens, layout, components)
+├── js/
+│   ├── data.js         # Language definitions & quiz bank
+│   └── app.js          # Application logic (visualizer, quiz, proof)
+├── .vscode/
+│   ├── settings.json   # Editor settings
+│   └── extensions.json # Recommended extensions
+└── README.md
+```
+
+---
+
+## Getting Started
+
+### Option 1 — Live Server (recommended)
+1. Open this folder in **VS Code**
+2. Install the **Live Server** extension (recommended via `.vscode/extensions.json`)
+3. Right-click `index.html` → **Open with Live Server**
+4. The site opens at `http://localhost:5500`
+
+### Option 2 — Direct open
+Simply open `index.html` in any modern browser. No build step or server required.
+
+---
+
+## Features
+
+| Section | Description |
+|---|---|
+| **Hero** | Formal statement of the Pumping Lemma with visual formula display |
+| **Configure** | Choose a preset language or enter a custom string and pumping length p |
+| **Decomposition** | Animated character-by-character breakdown into x, y, z segments |
+| **Pumping** | Slider to set i — watch xy^i z update in real time with membership check |
+| **Proof** | Step-by-step reasoning tied to your current configuration |
+| **Accordion** | Expandable explanations for x, y, z, pumping, and non-regularity |
+| **Quiz** | 8 randomised questions with immediate feedback and running score |
+
+---
+
+## Preset Languages
+
+| Language | Regular? |
+|---|---|
+| L = { aⁿbⁿ \| n ≥ 1 } | ✗ Not regular |
+| L = { aⁿ \| n ≥ 0 } | ✓ Regular |
+| L = { ww \| w ∈ {a,b}* } | ✗ Not regular |
+| L = { (ab)ⁿ \| n ≥ 1 } | ✓ Regular |
+| L = { a²ⁿ \| n ≥ 1 } | ✓ Regular |
+| Custom | Enter your own string |
+
+---
+
+## Extending the Project
+
+### Add a new language
+Edit `js/data.js` and add an entry to the `LANGS` object:
+
+```js
+myLang: {
+  name: 'L = { ... }',
+  regular: false,           // true | false | null
+  defStr: 'aabb',           // default example string
+  defP: 3,                  // default pumping length
+  check: s => { ... },      // membership function → bool
+  why: "Explanation ...",   // why pumping fails (non-regular only)
+  xd: "x is ...",
+  yd: "y is ...",
+  zd: "z is ..."
+}
+```
+
+Then add the `<option>` to the `#lang-sel` select in `index.html`.
+
+### Add a quiz question
+Edit `js/data.js` and push to the `QUIZ` array:
+
+```js
+{
+  q: 'Is L = { ... } regular?',
+  a: false,                 // correct answer
+  exp: 'Explanation shown after answering.'
+}
+```
+
+---
+
+## Design
+
+- **Font pairing**: Playfair Display (headings) + IBM Plex Mono (code/labels) + IBM Plex Sans (body)
+- **Palette**: Warm parchment background (#f5f2eb), ink black (#0a0a0a), crimson red (#c0392b)
+- **Aesthetic**: Academic brutalism — strict grid, hard borders, no gradients
+- **Responsive**: Mobile-friendly down to 360px
+
+---
+
+## Browser Support
+
+Works in all modern browsers: Chrome, Firefox, Safari, Edge. No dependencies or build tools required.
+
+---
+
+*Educational tool · Theory of Computation*
